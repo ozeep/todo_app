@@ -1,0 +1,69 @@
+{
+  "groups": [
+    {
+      "id": 1,
+      "name": "test",
+      "color": { "hue": 105, "saturation": 87, "light": 65 }
+    },
+    {
+      "id": 2,
+      "name": "Something else",
+      "color": { "hue": 15, "saturation": 87, "light": 63 }
+    }
+  ],
+  "tasks": [
+    {
+      "groupid": 1,
+      "id": 1,
+      "name": "test"
+    },
+    {
+      "groupid": 1,
+      "id": 2,
+      "name": "Something else"
+    },
+    {
+      "groupid": 1,
+      "id": 3,
+      "name": "Another one"
+    },
+    {
+      "groupid": 2,
+      "id": 4,
+      "name": "Something else number"
+    },
+    {
+      "groupid": 2,
+      "id": 5,
+      "name": "Something special for u and me"
+    },
+    {
+      "groupid": 2,
+      "id": 6,
+      "name": "Buy some wine",
+      "description": "Some text",
+      "gallery": [
+        {
+          "__id": 1,
+          "name": "Image",
+          "url": "https://picsum.photos/id/1/700"
+        },
+        {
+          "__id": 2,
+          "name": "Image",
+          "url": "https://picsum.photos/id/2/700"
+        },
+        {
+          "__id": 3,
+          "name": "Image",
+          "url": "https://picsum.photos/id/5/700"
+        }
+      ]
+    },
+    {
+      "groupid": 2,
+      "id": 6,
+      "name": "Buy some wine"
+    }
+  ]
+}
