@@ -3,23 +3,16 @@ import { useDispatch, connect } from "react-redux";
 
 import AddGroup from "./components/AddGroup";
 import Group from "./components/Group";
-import Task from "./components/Task";
 import { fetchGroups } from "./redux/actions/groups";
 import AlertContainer from "./components/Alert";
+import { IGroup } from "./redux/types";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TasksContainer from "./components/TasksContainer";
 
 interface App {
   onFetchGroups(): any;
-  groups: Group[];
+  groups: IGroup[];
 }
 
 function App({ groups }: App) {
@@ -39,12 +32,7 @@ function App({ groups }: App) {
               <AddGroup />
 
               {groups.map((group) => (
-                <Group
-                  name={group.name}
-                  id={group.id}
-                  color={group.color}
-                  key={group.id}
-                />
+                <Group {...group} key={group._id} />
               ))}
             </div>
             <div className="content">
