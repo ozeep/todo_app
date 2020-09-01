@@ -3,13 +3,13 @@ import GroupModel from "../models/GroupModel";
 
 const Groups = express.Router();
 
-Groups.get("/", (res: Response) => {
-  GroupModel.find({})
+Groups.post("/", (req: Request, res: Response) => {
+  GroupModel.find()
     .then((groups) => {
       res.json(groups);
     })
-    .catch(() => {
-      res.status(500).json("error");
+    .catch((error) => {
+      res.status(500).json(error);
     });
 });
 

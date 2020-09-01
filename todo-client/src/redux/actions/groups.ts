@@ -13,7 +13,7 @@ export const addGroup = (name: string, color: IColor) => ({
 
 export const fetchGroups = (): IThunkAction<IGroup[]> => (dispatch) => {
   axios
-    .get("http://localhost:3005/api/groups")
+    .post("http://localhost:3005/api/groups")
     .then(({ data }) => {
       dispatch({ type: FETCH_GROUPS, payload: data });
     })
