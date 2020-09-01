@@ -1,19 +1,16 @@
-import { IColor } from "../../components/ColorPicker";
-
 export const ADD_GROUP = "ADD_GROUP";
 export const DELETE_GROUP = "DELETE_GROUP";
 export const EDIT_GROUP = "EDIT_GROUP";
 export const FETCH_GROUPS = "FETCH_GROUPS";
 
-export interface IGroup {
-  _id: string;
-  name: string;
-  color: IColor;
+export interface Group {
+  message: string;
+  color: string;
 }
 
 interface AddGroupAction {
   type: typeof ADD_GROUP;
-  payload: IGroup;
+  payload: Group;
 }
 
 interface DeleteGroupAction {
@@ -23,7 +20,7 @@ interface DeleteGroupAction {
 
 interface FetchGroupsAction {
   type: typeof FETCH_GROUPS;
-  payload: IGroup[];
+  payload: Group[];
 }
 
 export type GroupActionTypes =
