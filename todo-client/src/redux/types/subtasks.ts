@@ -1,3 +1,5 @@
+import { ITask } from ".";
+
 export const ADD_SUBTASK = "ADD_SUBTASK";
 export const DELETE_SUBTASK = "DELETE_SUBTASK";
 export const EDIT_SUBTASK = "EDIT_SUBTASK";
@@ -5,11 +7,12 @@ export const EDIT_SUBTASK = "EDIT_SUBTASK";
 export interface ISubtask {
   name: string;
   compleated: boolean;
+  _id: string;
 }
 
 interface AddSubtaskAction {
   type: typeof ADD_SUBTASK;
-  payload: ISubtask;
+  payload: ITask;
 }
 
 interface DeleteSubtaskAction {
@@ -19,7 +22,7 @@ interface DeleteSubtaskAction {
 
 interface EditSubtasksAction {
   type: typeof EDIT_SUBTASK;
-  payload: ISubtask;
+  payload: ITask;
 }
 
 export type SubtaskActionTypes =

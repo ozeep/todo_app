@@ -3,21 +3,25 @@ import classNames from "classnames";
 import Icon from "@material-ui/core/Icon";
 import Dialog from "./Dialog";
 import { ISubtask } from "../redux/types";
+import { useDispatch } from "react-redux";
+import { deleteSubtask } from "../redux/actions/subtasks";
 
 interface Subtask extends ISubtask {
   onDelete?(): void;
 }
 
-const Subtask = ({ name, compleated, onDelete }: Subtask) => {
+const Subtask = ({ name, compleated, _id, onDelete }: Subtask) => {
   const [isCompleated, setIsCompleated] = React.useState<boolean>(compleated);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
+
+  const dispatch = useDispatch();
 
   const deleteTask = () => {
     setShowDeleteDialog(true);
   };
 
   const handleSubmit = () => {
-    console.log("deleted");
+    dispatch(deleteSubtask(_id));
     setShowDeleteDialog(false);
   };
 

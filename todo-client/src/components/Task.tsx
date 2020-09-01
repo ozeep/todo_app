@@ -7,6 +7,8 @@ import DragAndDrop from "./DragAndDrop";
 import classNames from "classnames";
 import Dialog from "./Dialog";
 import { ITask } from "../redux/types";
+import { useDispatch } from "react-redux";
+import { addSubtask } from "../redux/actions/subtasks";
 
 export interface IFile extends File {
   url?: string;
@@ -21,7 +23,6 @@ const Task = ({ name, subtasks }: ITask) => {
 
   const [editGallery, setEditGallery] = React.useState(false);
   const [editDescription, setEditDescription] = React.useState(false);
-  const [addSubtask, setAddSubtask] = React.useState(false);
   const [showDelete, setShowDelete] = React.useState(false);
 
   const [menu, setMenu] = React.useState(false);
@@ -42,6 +43,8 @@ const Task = ({ name, subtasks }: ITask) => {
       url: "https://picsum.photos/700",
     },
   ];
+
+  const dispatch = useDispatch();
 
   const handleDrop = (files: IFile[]) => {
     setUploadImageError("");
@@ -98,6 +101,10 @@ const Task = ({ name, subtasks }: ITask) => {
     setShowDelete(false);
   };
 
+  const handleAddSubtaskClick = () => {
+    dispatch(addSubtask("5f4e45477640c129efc63bbe", "Privet"));
+  };
+
   React.useEffect(() => {}, []);
 
   return (
@@ -107,7 +114,7 @@ const Task = ({ name, subtasks }: ITask) => {
           onClick={() => setMenu(false)}
           className={`task__menu ${menu && "active"}`}
         >
-          <li>
+          <li onClick={handleAddSubtaskClick}>
             <Icon>add</Icon>Добавить подзадачу
           </li>
           <li>
@@ -244,7 +251,7 @@ const Task = ({ name, subtasks }: ITask) => {
               <h2>Подзадачи</h2>
               <Icon
                 className="button--icon"
-                onClick={() => setAddSubtask(true)}
+                onClick={() => handleAddSubtaskClick}
               >
                 add
               </Icon>

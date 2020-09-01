@@ -8,7 +8,7 @@ export const FETCH_TASKS = "FETCH_TASKS";
 export interface ITask {
   name?: string;
   groupId: string;
-  id?: string;
+  _id?: string;
   subtasks: ISubtask[];
 }
 

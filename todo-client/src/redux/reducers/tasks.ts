@@ -22,11 +22,24 @@ const tasks = (
 ) => {
   switch (action.type) {
     case ADD_SUBTASK:
-      return [...state, action.payload];
+      return [
+        ...state.filter((item) => item._id !== action.payload._id),
+        action.payload,
+      ];
     case EDIT_SUBTASK:
-      return action.payload;
+      return [
+        ...state.filter((item) => item._id !== action.payload._id),
+        action.payload,
+      ];
     case DELETE_SUBTASK:
-      return action.payload;
+      return [
+        ...state.map((item) => {
+          return {
+            ...item,
+            subtasks: item.subtasks.filter((sub) => sub._id !== action.payload),
+          };
+        }),
+      ];
     case ADD_TASK:
       return [...state, action.payload];
     case FETCH_TASKS:
