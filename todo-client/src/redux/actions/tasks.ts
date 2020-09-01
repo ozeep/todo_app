@@ -1,7 +1,6 @@
 import axios from "axios";
 import { addAlert } from "./alerts";
-import { ADD_TASK, Task, FETCH_TASKS, IThunkAction } from "../types";
-import { Action } from "redux";
+import { ADD_TASK, ITask, FETCH_TASKS, IThunkAction } from "../types";
 
 export const addTask = (name: string) => ({
   type: ADD_TASK,
@@ -10,11 +9,11 @@ export const addTask = (name: string) => ({
   },
 });
 
-export const deleteTask = (id: string): IThunkAction<Task[]> => (
+export const deleteTask = (id: string): IThunkAction<ITask[]> => (
   dispatch
 ) => {};
 
-export const fetchTasks = (groupId: string): IThunkAction<Task[]> => (
+export const fetchTasks = (groupId: string): IThunkAction<ITask[]> => (
   dispatch
 ) => {
   axios

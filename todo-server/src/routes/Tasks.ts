@@ -6,9 +6,9 @@ const Tasks = express.Router();
 Tasks.post("/", (req: Request, res: Response) => {
   let groupId = req.body.groupId;
 
-  TaskModel.find({ groupId })
-    .then((groups) => {
-      res.json(groups);
+  TaskModel.find({ groupId }).populate("subtasks")
+    .then((tasks) => {
+      res.json(tasks);
     })
     .catch(() => {
       res.status(500).json("error");
@@ -16,12 +16,12 @@ Tasks.post("/", (req: Request, res: Response) => {
 });
 
 Tasks.put("/", (req: Request, res: Response) => {
-  let group = req.body;
+  let task = req.body;
 
-  new TaskModel(group)
+  new TaskModel(task)
     .save()
-    .then((group) => {
-      res.json(group);
+    .then((task) => {
+      res.json(task);
     })
     .catch((error) => {
       res.status(500).json(error);
@@ -31,7 +31,7 @@ Tasks.put("/", (req: Request, res: Response) => {
 Tasks.patch("/:id", (req: Request, res: Response) => {
   let _id = req.params.id;
   TaskModel.updateOne({ _id }, { ...req.body })
-    .then((group) => {
+    .then((task) => {
       res.status(200).json(true);
     })
     .catch((error) => {
@@ -42,7 +42,7 @@ Tasks.patch("/:id", (req: Request, res: Response) => {
 Tasks.delete("/:id", (req: Request, res: Response) => {
   let _id = req.params.id;
   TaskModel.deleteOne({ _id })
-    .then((group) => {
+    .then((task) => {
       res.status(200).json(true);
     })
     .catch((error) => {

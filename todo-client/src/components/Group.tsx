@@ -4,10 +4,12 @@ import Icon from "@material-ui/core/Icon";
 import { Link, useRouteMatch } from "react-router-dom";
 import classNames from "classnames";
 import { IGroup } from "../redux/types";
+import Dialog from "./Dialog";
 
 const Group = ({ name, _id, color }: IGroup) => {
   const [colorState, setColorState] = React.useState<IColor>(color);
   const [edit, setEdit] = React.useState(false);
+  const [showDelete, setShowDelete] = React.useState(false);
 
   const [title, setTitle] = React.useState(name);
   const [groupName, setGroupName] = React.useState(name);
@@ -32,6 +34,16 @@ const Group = ({ name, _id, color }: IGroup) => {
     setEdit(false);
   };
 
+  const handleSubmit = () => {
+    console.log("deleted");
+    setShowDelete(false);
+  };
+
+  const handleDecline = () => {
+    console.log("not deleted");
+    setShowDelete(false);
+  };
+
   return (
     <div
       className={classNames("group_block", { active: match, edit })}
@@ -54,6 +66,9 @@ const Group = ({ name, _id, color }: IGroup) => {
           <Icon className="button--icon" onClick={() => setEdit(true)}>
             create
           </Icon>
+          <Icon className="button--icon" onClick={() => setShowDelete(true)}>
+            delete
+          </Icon>
         </>
       )}
 
@@ -68,6 +83,14 @@ const Group = ({ name, _id, color }: IGroup) => {
           </button>
         </div>
       </div>
+      {showDelete && (
+        <Dialog
+          header="Удаление"
+          text="Вы действительно хотите удалить эту группу?"
+          onSubmit={handleSubmit}
+          onDecline={handleDecline}
+        />
+      )}
     </div>
   );
 };

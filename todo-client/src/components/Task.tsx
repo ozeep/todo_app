@@ -5,21 +5,24 @@ import Gallery, { Image } from "./gallery/";
 import Subtask from "./Subtask";
 import DragAndDrop from "./DragAndDrop";
 import classNames from "classnames";
+import Dialog from "./Dialog";
+import { ITask } from "../redux/types";
 
 export interface IFile extends File {
   url?: string;
 }
 
-const Task = ({ name }: any) => {
+const Task = ({ name, subtasks }: ITask) => {
   const [fullscreen, setFullscreen] = React.useState<boolean>(false);
   const [uploadImages, setUploadImages] = React.useState<IFile[]>([]);
 
   const [uploadImageError, setUploadImageError] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
 
-  const [editGallery, setEditGallery] = React.useState<boolean>(false);
-  const [editDescription, setEditDescription] = React.useState<boolean>(false);
-  const [addSubtask, setAddSubtask] = React.useState<boolean>(false);
+  const [editGallery, setEditGallery] = React.useState(false);
+  const [editDescription, setEditDescription] = React.useState(false);
+  const [addSubtask, setAddSubtask] = React.useState(false);
+  const [showDelete, setShowDelete] = React.useState(false);
 
   const [menu, setMenu] = React.useState(false);
 
@@ -85,19 +88,32 @@ const Task = ({ name }: any) => {
     return "";
   };
 
+  const handleSubmit = () => {
+    console.log("deleted");
+    setShowDelete(false);
+  };
+
+  const handleDecline = () => {
+    console.log("not deleted");
+    setShowDelete(false);
+  };
+
   React.useEffect(() => {}, []);
 
   return (
     <div className={!fullscreen ? `task` : `task fullscreen`}>
       <div className="task__header">
-        <ul className={`task__menu ${menu && "active"}`}>
+        <ul
+          onClick={() => setMenu(false)}
+          className={`task__menu ${menu && "active"}`}
+        >
           <li>
             <Icon>add</Icon>Добавить подзадачу
           </li>
           <li>
             <Icon>create</Icon>Редактировать задачу
           </li>
-          <li>
+          <li onClick={() => setShowDelete(true)}>
             <Icon>delete</Icon>Удалить задачу
           </li>
         </ul>
@@ -234,15 +250,19 @@ const Task = ({ name }: any) => {
               </Icon>
             </div>
           )}
-          <Subtask
-            name="Sho to tam"
-            compleated={true}
-            onDelete={() => {
-              console.log("delete");
-            }}
-          />
+          {subtasks.map((subtask) => (
+            <Subtask {...subtask} />
+          ))}
         </div>
       </div>
+      {showDelete && (
+        <Dialog
+          header="Удаление"
+          text="Вы действительно хотите удалить эту задачу?"
+          onSubmit={handleSubmit}
+          onDecline={handleDecline}
+        />
+      )}
     </div>
   );
 };

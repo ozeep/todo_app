@@ -5,6 +5,7 @@ import cors from "cors";
 
 import Groups from "./routes/Groups";
 import Tasks from "./routes/Tasks";
+import Subtasks from "./routes/Subtasks";
 
 mongoose.connect("mongodb://localhost/todo_app", {
   useNewUrlParser: true,
@@ -24,6 +25,7 @@ app.use(jsonParser);
 
 app.use("/api/groups", Groups);
 app.use("/api/tasks", Tasks);
+app.use("/api/subtasks", Subtasks);
 
 app.listen(3005, () => {
   console.log("Server started!");
