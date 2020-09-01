@@ -18,7 +18,7 @@ export const fetchTasks = (groupId: string): IThunkAction<Task[]> => (
   dispatch
 ) => {
   axios
-    .get(`http://localhost:3004/tasks?groupid_like=${groupId}`)
+    .post("http://localhost:3005/api/tasks", { groupId })
     .then(({ data }) => {
       dispatch({ type: FETCH_TASKS, payload: data });
     })

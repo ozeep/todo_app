@@ -1,6 +1,6 @@
-import { ADD_GROUP, FETCH_GROUPS, Group, GroupActionTypes } from "../types";
+import { ADD_GROUP, FETCH_GROUPS, IGroup, GroupActionTypes } from "../types";
 
-const initialState: Group[] = [];
+const initialState: IGroup[] = [];
 
 const groups = (state = initialState, action: GroupActionTypes) => {
   switch (action.type) {

@@ -3,21 +3,16 @@ import ColorPicker, { IColor } from "./ColorPicker";
 import Icon from "@material-ui/core/Icon";
 import { Link, useRouteMatch } from "react-router-dom";
 import classNames from "classnames";
+import { IGroup } from "../redux/types";
 
-interface Group {
-  name: string;
-  id: string;
-  color: IColor;
-}
-
-const Group = ({ name, id, color }: Group) => {
+const Group = ({ name, _id, color }: IGroup) => {
   const [colorState, setColorState] = React.useState<IColor>(color);
   const [edit, setEdit] = React.useState(false);
 
   const [title, setTitle] = React.useState(name);
   const [groupName, setGroupName] = React.useState(name);
 
-  let match = useRouteMatch(`/${id}`);
+  let match = useRouteMatch(`/groups/${_id}`);
 
   const onColorChange = ({ hue, saturation, light }: IColor) => {
     setColorState((prevState) => ({
@@ -53,7 +48,7 @@ const Group = ({ name, id, color }: Group) => {
         />
       ) : (
         <>
-          <Link to={`/${id}`}>
+          <Link to={`/groups/${_id}`}>
             <p>{groupName}</p>
           </Link>
           <Icon className="button--icon" onClick={() => setEdit(true)}>
