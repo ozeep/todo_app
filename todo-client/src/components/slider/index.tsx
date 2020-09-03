@@ -37,19 +37,19 @@ const Slider = ({
     setValue(Math.trunc(size));
   };
 
-  const mouseDown = () => {
+  const mouseDown = React.useCallback(() => {
     window.addEventListener("mousemove", moveAt);
     window.addEventListener("mouseup", mouseUp);
-  };
+  }, []);
 
-  const mouseUp = () => {
+  const mouseUp = React.useCallback(() => {
     window.removeEventListener("mousemove", moveAt);
     window.removeEventListener("mouseup", mouseUp);
-  };
+  }, []);
 
-  const moveAt = (event: MouseEvent): any => {
+  const moveAt = React.useCallback((event: MouseEvent): any => {
     setSize(event, refSlider);
-  };
+  }, []);
 
   const handleClickSlider = (event: React.MouseEvent): any => {
     setSize(event, refSlider);

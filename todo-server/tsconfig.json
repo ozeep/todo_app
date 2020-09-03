@@ -28,6 +28,8 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     // "paths": {},
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+
+    "typeRoots": ["./custom_typings", "./node_modules/@types"]
   }
 }

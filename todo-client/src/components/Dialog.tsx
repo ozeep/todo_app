@@ -3,12 +3,12 @@ import ReactDOM from "react-dom";
 
 interface Dialog {
   header: string;
-  text: string;
+  children: React.ReactNode;
   onSubmit?(args?: any): void;
   onDecline?(args?: any): void;
 }
 
-const Dialog = ({ onSubmit, onDecline, header, text }: Dialog) => {
+const Dialog = ({ onSubmit, onDecline, header, children }: Dialog) => {
   const modalRoot: any = document.getElementById("modal");
 
   return ReactDOM.createPortal(
@@ -17,9 +17,7 @@ const Dialog = ({ onSubmit, onDecline, header, text }: Dialog) => {
         <div className="popup__dialog__header">
           <p>{header}</p>
         </div>
-        <div className="popup__dialog__text">
-          <p>{text}</p>
-        </div>
+        <div className="popup__dialog__text">{children}</div>
         <div className="popup__dialog__controls">
           <button className="button accept" onClick={onSubmit}>
             Подтвердить

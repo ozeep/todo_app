@@ -1,4 +1,5 @@
 import { ISubtask } from "./subtasks";
+import { IGallery } from "./gallery";
 
 export const ADD_TASK = "ADD_TASK";
 export const DELETE_TASK = "DELETE_TASK";
@@ -8,8 +9,9 @@ export const FETCH_TASKS = "FETCH_TASKS";
 export interface ITask {
   name?: string;
   groupId: string;
-  _id?: string;
+  _id: string;
   subtasks: ISubtask[];
+  gallery: IGallery[];
 }
 
 interface AddTaskAction {
@@ -27,7 +29,13 @@ interface FetchTasksAction {
   payload: ITask[];
 }
 
+interface EditTaskAction {
+  type: typeof EDIT_TASK;
+  payload: ITask;
+}
+
 export type TaskActionTypes =
   | AddTaskAction
   | DeleteTaskAction
-  | FetchTasksAction;
+  | FetchTasksAction
+  | EditTaskAction;

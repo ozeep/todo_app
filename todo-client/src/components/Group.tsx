@@ -5,16 +5,19 @@ import { Link, useRouteMatch } from "react-router-dom";
 import classNames from "classnames";
 import { IGroup } from "../redux/types";
 import Dialog from "./Dialog";
+import { useDispatch } from "react-redux";
+import { deleteGroup, editGroup } from "../redux/actions/groups";
 
 const Group = ({ name, _id, color }: IGroup) => {
   const [colorState, setColorState] = React.useState<IColor>(color);
   const [edit, setEdit] = React.useState(false);
   const [showDelete, setShowDelete] = React.useState(false);
 
-  const [title, setTitle] = React.useState(name);
   const [groupName, setGroupName] = React.useState(name);
 
-  let match = useRouteMatch(`/${_id}`);
+  const match = useRouteMatch(`/tasks/${_id}`);
+
+  const dispatch = useDispatch();
 
   const onColorChange = ({ hue, saturation, light }: IColor) => {
     setColorState((prevState) => ({
@@ -25,22 +28,13 @@ const Group = ({ name, _id, color }: IGroup) => {
     }));
   };
 
-  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
   const editAccept = () => {
-    setGroupName(title);
+    dispatch(editGroup({ name: groupName, _id, color: colorState }));
     setEdit(false);
   };
 
   const handleSubmit = () => {
-    console.log("deleted");
-    setShowDelete(false);
-  };
-
-  const handleDecline = () => {
-    console.log("not deleted");
+    dispatch(deleteGroup(_id));
     setShowDelete(false);
   };
 
@@ -55,12 +49,13 @@ const Group = ({ name, _id, color }: IGroup) => {
         <input
           type="text"
           className="group_block__input"
-          value={title}
-          onChange={onTitleChange}
+          placeholder="Введите название"
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
         />
       ) : (
         <>
-          <Link to={`/${_id}`}>
+          <Link to={`/tasks/${_id}`}>
             <p>{groupName}</p>
           </Link>
           <Icon className="button--icon" onClick={() => setEdit(true)}>
@@ -86,10 +81,11 @@ const Group = ({ name, _id, color }: IGroup) => {
       {showDelete && (
         <Dialog
           header="Удаление"
-          text="Вы действительно хотите удалить эту группу?"
           onSubmit={handleSubmit}
-          onDecline={handleDecline}
-        />
+          onDecline={() => setShowDelete(false)}
+        >
+          <p>Вы действительно хотите удалить эту группу?</p>
+        </Dialog>
       )}
     </div>
   );

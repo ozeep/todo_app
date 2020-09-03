@@ -26,7 +26,13 @@ interface FetchGroupsAction {
   payload: IGroup[];
 }
 
+interface EditGroupAction {
+  type: typeof EDIT_GROUP;
+  payload: IGroup;
+}
+
 export type GroupActionTypes =
   | FetchGroupsAction
   | AddGroupAction
-  | DeleteGroupAction;
+  | DeleteGroupAction
+  | EditGroupAction;

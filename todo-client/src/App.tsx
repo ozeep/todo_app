@@ -1,22 +1,31 @@
 import React from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import AddGroup from "./components/AddGroup";
-import Group from "./components/Group";
-import { fetchGroups } from "./redux/actions/groups";
-import AlertContainer from "./components/Alert";
-import { IGroup } from "./redux/types";
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useLocation, Switch, Route } from "react-router-dom";
 import TasksContainer from "./components/TasksContainer";
+import { Icon } from "@material-ui/core";
+import { addTask } from "./redux/actions/tasks";
+import Dialog from "./components/Dialog";
+import Sidebar from "./components/Sidebar";
+import AlertContainer from "./components/AlertContainer";
+import { fetchGroups } from "./redux/actions/groups";
 
-interface App {
-  onFetchGroups(): any;
-  groups: IGroup[];
-}
+function App() {
+  const [showAddTask, setShowAddTask] = React.useState(false);
+  const [taskName, setTaskName] = React.useState<string>("");
 
-function App({ groups }: App) {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
+  const pathLink = pathname.includes("/tasks/")
+    ? pathname.replace("/tasks/", "")
+    : "";
+
+  const handleSubmitAddTask = () => {
+    dispatch(addTask(pathLink, taskName));
+    setTaskName("");
+    setShowAddTask(false);
+  };
 
   React.useEffect(() => {
     dispatch(fetchGroups());
@@ -24,33 +33,47 @@ function App({ groups }: App) {
 
   return (
     <div className="App">
-      <Router>
-        <div className="wrapper">
-          <div className="header"></div>
-          <div className="container">
-            <div className="sidebar">
-              <AddGroup />
-
-              {groups.map((group) => (
-                <Group {...group} key={group._id} />
-              ))}
+      <div className="wrapper">
+        <div className="header"></div>
+        <div className="container">
+          <Sidebar />
+          <div className="content">
+            <div className="content__header">
+              <button
+                onClick={() => setShowAddTask(true)}
+                className="button reversed"
+              >
+                <Icon>add</Icon>
+                <p>Добавить задачу</p>
+              </button>
             </div>
-            <div className="content">
+            <div className="content__tasks">
               <Switch>
-                <Route path={`/:groupId`}>
+                <Route path={`/tasks/:groupId`}>
                   <TasksContainer />
                 </Route>
               </Switch>
             </div>
           </div>
         </div>
-        <AlertContainer />
-      </Router>
+      </div>
+      {showAddTask && (
+        <Dialog
+          header="Добавление задачи"
+          onSubmit={handleSubmitAddTask}
+          onDecline={() => setShowAddTask(false)}
+        >
+          <p>Название:</p>
+          <input
+            type="text"
+            placeholder="Введите название"
+            onChange={(e) => setTaskName(e.target.value)}
+          />
+        </Dialog>
+      )}
+      <AlertContainer />
     </div>
   );
 }
 
-export default connect(({ groups, tasks }: any) => ({
-  groups,
-  tasks,
-}))(App);
+export default App;

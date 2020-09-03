@@ -1,5 +1,7 @@
 import React from "react";
-import ColorPicker from "./ColorPicker";
+import ColorPicker, { IColor } from "./ColorPicker";
+import { useDispatch } from "react-redux";
+import { addGroup } from "../redux/actions/groups";
 
 const AddGroup = () => {
   const [color, setColor] = React.useState({
@@ -7,15 +9,25 @@ const AddGroup = () => {
     saturation: 37,
     light: 62,
   });
-  const [edit, setEdit] = React.useState(false);
 
-  const onColorChange = (color) => {
+  const [edit, setEdit] = React.useState(false);
+  const [name, setName] = React.useState("");
+
+  const dispatch = useDispatch();
+
+  const onColorChange = (color: IColor) => {
     setColor((prevState) => ({
       ...prevState,
       hue: color.hue,
       saturation: color.saturation,
       light: color.light,
     }));
+  };
+
+  const handleAddGroup = () => {
+    dispatch(addGroup(name, color));
+    setEdit(false);
+    setName("");
   };
 
   return (
@@ -32,6 +44,7 @@ const AddGroup = () => {
           type="text"
           className="group_block__input"
           placeholder="Введите название..."
+          onChange={(e) => setName(e.target.value)}
         />
       ) : (
         <div className="group_block__title">
@@ -47,7 +60,9 @@ const AddGroup = () => {
           <button className="button cancel" onClick={() => setEdit(false)}>
             Отменить
           </button>
-          <button className="button accept">Принять</button>
+          <button onClick={handleAddGroup} className="button accept">
+            Принять
+          </button>
         </div>
       </div>
     </div>

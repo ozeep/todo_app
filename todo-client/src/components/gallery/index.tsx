@@ -3,19 +3,14 @@ import Icon from "@material-ui/core/Icon";
 import classNames from "classnames";
 
 import "./gallery.scss";
+import { IGallery } from "../../redux/types";
 
-export interface Image {
-  __id: string;
-  name?: string;
-  url: string;
-}
-
-export interface IGallery {
-  images: Image[];
+export interface GalleryComponent {
+  images: IGallery[];
   settings?: any;
 }
 
-const Gallery = ({ images, settings }: IGallery) => {
+const Gallery = ({ images, settings }: GalleryComponent) => {
   const [fullscreen, setFullscreen] = React.useState<boolean>(false);
   const [imageId, setImageId] = React.useState<number>(0);
   const [previewWidth, setPreviewWidth] = React.useState<number>(0);
@@ -32,6 +27,8 @@ const Gallery = ({ images, settings }: IGallery) => {
   settings = settings ? settings : settingsDefault;
 
   React.useEffect(() => {
+    if (!images) return;
+
     var preview: any = previewWrapper.current!.childNodes[0];
 
     var previewMargin =
@@ -48,7 +45,7 @@ const Gallery = ({ images, settings }: IGallery) => {
   }, [fullscreen, previewNumber]);
 
   React.useEffect(() => {
-    if (images.length < settings.maxFullscreenPreview) {
+    if (images && images.length < settings.maxFullscreenPreview) {
       setPreviewNumber(images.length);
     }
   }, [images, settings]);

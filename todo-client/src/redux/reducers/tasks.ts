@@ -7,14 +7,11 @@ import {
   ADD_SUBTASK,
   EDIT_SUBTASK,
   DELETE_SUBTASK,
+  EDIT_TASK,
+  DELETE_TASK,
 } from "../types";
 
-const initialState: ITask[] = [
-  {
-    groupId: "1",
-    subtasks: [],
-  },
-];
+const initialState: ITask[] = [];
 
 const tasks = (
   state = initialState,
@@ -28,8 +25,14 @@ const tasks = (
       ];
     case EDIT_SUBTASK:
       return [
-        ...state.filter((item) => item._id !== action.payload._id),
-        action.payload,
+        ...state.map((item) => {
+          return {
+            ...item,
+            subtasks: item.subtasks.map((sub) =>
+              sub._id === action.payload._id ? (sub = action.payload) : sub
+            ),
+          };
+        }),
       ];
     case DELETE_SUBTASK:
       return [
@@ -42,8 +45,14 @@ const tasks = (
       ];
     case ADD_TASK:
       return [...state, action.payload];
+    case DELETE_TASK:
+      return state.filter((task) => task._id !== action.payload);
     case FETCH_TASKS:
       return action.payload;
+    case EDIT_TASK:
+      return state.map((task) =>
+        task._id === action.payload._id ? { ...task, ...action.payload } : task
+      );
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 import express from "express";
+import fileUpload from "express-fileupload";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -6,6 +7,7 @@ import cors from "cors";
 import Groups from "./routes/Groups";
 import Tasks from "./routes/Tasks";
 import Subtasks from "./routes/Subtasks";
+import Gallery from "./routes/Gallery";
 
 mongoose.connect("mongodb://localhost/todo_app", {
   useNewUrlParser: true,
@@ -22,10 +24,22 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(jsonParser);
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.static("public"));
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.use("/api/groups", Groups);
 app.use("/api/tasks", Tasks);
 app.use("/api/subtasks", Subtasks);
+app.use("/api/gallery", Gallery);
 
 app.listen(3005, () => {
   console.log("Server started!");

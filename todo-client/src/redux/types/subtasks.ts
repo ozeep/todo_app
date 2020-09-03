@@ -22,7 +22,7 @@ interface DeleteSubtaskAction {
 
 interface EditSubtasksAction {
   type: typeof EDIT_SUBTASK;
-  payload: ITask;
+  payload: ISubtask;
 }
 
 export type SubtaskActionTypes =

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { Icon } from "@material-ui/core";
-import { AlertsState, Alert } from "../redux/types/";
+import { AlertsState, Alert } from "../redux/types";
 import { deleteAlert } from "../redux/actions/alerts";
 
 interface AlertContainer {

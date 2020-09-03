@@ -24,6 +24,13 @@ a {
   height: 100vh;
 }
 
+.separator {
+  width: 100%;
+  margin: 15px 0px;
+  height: 1px;
+  background: #eee;
+}
+
 .header {
   width: 100%;
   height: 70px;
@@ -32,16 +39,56 @@ a {
 
 .content {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   flex: 1 1;
   overflow: hidden;
   height: calc(100vh - 70px);
 
   position: relative;
 
-  align-content: flex-start;
+  padding: 0px 10px;
 
-  padding: 10px;
+  &__tasks {
+    align-content: flex-start;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__header {
+    margin: 10px 20px 22px 20px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+    border-bottom: 3px solid #eee;
+    height: 57px;
+  }
+}
+
+input[type="text"] {
+  outline: none;
+  background: none !important;
+  border-width: 0px 0px 1px 0px;
+  border-color: #ffffff;
+  padding: 5px;
+  font-size: 14px;
+
+  margin-bottom: 10px;
+
+  width: calc(100% - 10px);
+  transition: 0.3s ease all;
+
+  color: #ffffff;
+  font-size: 16px;
+
+  &:focus {
+    border-width: 0px 0px 3px 0px;
+    font-weight: 600;
+  }
+  &::placeholder {
+    font-weight: 400;
+    color: #eee;
+  }
 }
 
 .container {
@@ -216,8 +263,9 @@ $gd: "";
 
   &__dialog {
     background: #fff;
-    width: 400px;
+    width: 350px;
     border-radius: 5px;
+    color: #777;
 
     &__header {
       padding: 5px 30px;
@@ -229,10 +277,19 @@ $gd: "";
       padding: 5px 30px;
     }
 
+    input {
+      color: #777;
+      border-color: #777;
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+
     &__controls {
       display: flex;
-      justify-content: space-around;
-      padding: 20px;
+      justify-content: space-between;
+      padding: 15px 25px;
 
       & .button {
         width: 120px;
@@ -246,28 +303,46 @@ $gd: "";
   border: none;
   margin: 0;
   text-decoration: none;
-  color: none;
   cursor: pointer;
   transition: all 250ms ease-in-out;
   appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff;
+
+  font-weight: 600;
+
+  &.reversed {
+    background: none;
+    color: #a2a2a2;
+  }
+
+  &.accept {
+    background: #97dc7c;
+  }
+
+  &.cancel {
+    background: #f87374;
+  }
 }
 
 .group_block {
   padding: 0 10px;
   border-radius: 5px;
-  max-height: 50px;
+  height: 50px;
 
   margin-bottom: 10px;
 
-  transition: 0.3s ease max-height;
-
   &.edit {
-    max-height: 250px;
-    padding: 10px;
+    height: 200px;
+    padding: 20px 10px 10px 10px;
+
     .group_block__edit_block {
-      transform: scaleY(1);
-      opacity: 1;
-      margin-top: 0;
+      display: block;
     }
   }
 
@@ -308,34 +383,13 @@ $gd: "";
   }
 
   &__input {
-    outline: none;
-    background: #fff !important;
-
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 14px;
-
-    margin-bottom: 10px;
-
-    width: calc(100% - 10px);
-
-    color: #979797;
-
-    &:focus {
-      border: 1px solid #f2994a;
-    }
   }
 
   &__edit_block {
     width: 100%;
     border-radius: 5px 5px 5px 5px;
     padding-bottom: 10px;
-    transition: 0.3s ease all;
-
-    transform: scaleY(0);
-    margin-top: -80px;
-    opacity: 0;
+    display: none;
 
     & .slider {
       margin-top: 15px;
@@ -359,23 +413,6 @@ $gd: "";
   }
 }
 
-.button {
-  outline: none;
-  border-radius: 5px;
-  padding: 10px;
-  color: #fff;
-
-  font-weight: 600;
-
-  &.accept {
-    background: #97dc7c;
-  }
-
-  &.cancel {
-    background: #f87374;
-  }
-}
-
 .task {
   display: flex;
   flex-flow: column wrap;
@@ -390,17 +427,20 @@ $gd: "";
   flex-basis: calc(33% - 40px);
 
   &.fullscreen {
-    max-width: calc(100% - 40px);
+    width: calc(100% - 80px);
+    flex-basis: 100%;
     height: calc(100% - 20px);
     position: absolute;
     z-index: 2;
 
     .task__sidebar {
       display: block;
+      height: 100vh;
+      width: 60%;
     }
 
     .task__content {
-      flex-basis: 350px;
+      flex-basis: 300px;
     }
 
     .task__container {
@@ -690,6 +730,7 @@ $gd: "";
 
     span {
       margin-left: auto;
+      font-size: 20px;
     }
   }
 }
@@ -872,5 +913,18 @@ $gd: "";
     .drag_drop__overlay {
       opacity: 1;
     }
+  }
+}
+
+@keyframes group-block-anim {
+  0% {
+    transform: scaleY(0);
+    margin-top: -180px;
+  }
+  50% {
+    margin-top: 10px;
+  }
+  100% {
+    transform: scaleY(1);
   }
 }

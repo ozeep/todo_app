@@ -1,23 +1,50 @@
-import axios from "axios";
+import API from "../../utils/API";
 import { addAlert } from "./alerts";
-import { ADD_TASK, ITask, FETCH_TASKS, IThunkAction } from "../types";
+import {
+  ADD_TASK,
+  ITask,
+  FETCH_TASKS,
+  IThunkAction,
+  EDIT_TASK,
+  DELETE_TASK,
+} from "../types";
 
-export const addTask = (name: string) => ({
-  type: ADD_TASK,
-  payload: {
-    name,
-  },
-});
+export const deleteTask = (_id: string): IThunkAction<string> => (dispatch) => {
+  API.delete("tasks", { params: { _id } })
+    .then(() => {
+      dispatch({ type: DELETE_TASK, payload: _id });
+    })
+    .catch(() => {
+      dispatch(addAlert("Ошибка удаления", "error") as any);
+    });
+};
 
-export const deleteTask = (id: string): IThunkAction<ITask[]> => (
+export const addTask = (groupId: string, name: string): IThunkAction<ITask> => (
   dispatch
-) => {};
+) => {
+  API.put("tasks", { groupId, name })
+    .then(({ data }) => {
+      if (data) dispatch({ type: ADD_TASK, payload: data });
+    })
+    .catch(() => {
+      dispatch(addAlert("Ошибка добавления", "error") as any);
+    });
+};
+
+export const editTask = (subtask: ITask): IThunkAction<ITask> => (dispatch) => {
+  API.patch("tasks", { subtask })
+    .then(() => {
+      dispatch({ type: EDIT_TASK, payload: subtask });
+    })
+    .catch(() => {
+      dispatch(addAlert("Ошибка редактирования", "error") as any);
+    });
+};
 
 export const fetchTasks = (groupId: string): IThunkAction<ITask[]> => (
   dispatch
 ) => {
-  axios
-    .post("http://localhost:3005/api/tasks", { groupId })
+  API.post("tasks", { groupId })
     .then(({ data }) => {
       dispatch({ type: FETCH_TASKS, payload: data });
     })

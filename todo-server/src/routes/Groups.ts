@@ -6,7 +6,7 @@ const Groups = express.Router();
 Groups.post("/", (req: Request, res: Response) => {
   GroupModel.find()
     .then((groups) => {
-      res.json(groups);
+      res.json(groups.reverse());
     })
     .catch((error) => {
       res.status(500).json(error);
@@ -25,10 +25,11 @@ Groups.put("/", (req: Request, res: Response) => {
     });
 });
 
-Groups.patch("/:id", (req: Request, res: Response) => {
-  let _id = req.params.id;
+Groups.patch("/", (req: Request, res: Response) => {
+  let _id = req.body._id;
+  console.log(req.body);
   GroupModel.updateOne({ _id }, { ...req.body })
-    .then((group) => {
+    .then(() => {
       res.status(200).json(true);
     })
     .catch((error) => {
@@ -36,10 +37,11 @@ Groups.patch("/:id", (req: Request, res: Response) => {
     });
 });
 
-Groups.delete("/:id", (req: Request, res: Response) => {
-  let _id = req.params.id;
+Groups.delete("/", (req: Request, res: Response) => {
+  let _id = req.query;
+
   GroupModel.deleteOne({ _id })
-    .then((group) => {
+    .then(() => {
       res.status(200).json(true);
     })
     .catch((error) => {

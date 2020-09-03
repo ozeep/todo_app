@@ -20,14 +20,16 @@
     align-items: center;
 
     &__wrapper {
-      width: 50%;
-      height: 75%;
+      height: 60%;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &__image {
       position: absolute;
-      width: 100%;
+      width: auto;
       height: 100%;
       margin: 5px;
       opacity: 0;
@@ -42,7 +44,6 @@
 
       img {
         border-radius: 5px;
-        width: 100%;
         height: 100%;
       }
     }
@@ -64,24 +65,19 @@
         display: flex;
         flex-flow: row;
         justify-content: center;
-
-        height: 100%;
       }
 
       &__image {
-        height: calc(100% - 4px);
+        width: 150px;
         margin: 0px 5px;
         border: 2px solid #fff;
-
-        overflow: hidden;
 
         &.active {
           border-color: #f2994a;
         }
 
         img {
-          height: 100%;
-          width: 100px;
+          width: 100%;
 
           transition: 0.3s ease transform;
         }
@@ -200,7 +196,7 @@
 
     img {
       transition: 0.2s ease all;
-      width: 100%;
+      height: 100%;
     }
   }
 }

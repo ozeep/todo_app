@@ -36,11 +36,12 @@ Subtasks.put("/", (req: Request, res: Response) => {
   });
 });
 
-Subtasks.patch("/:id", (req: Request, res: Response) => {
-  let _id = req.params.id;
-  SubtaskModel.updateOne({ _id }, { ...req.body })
-    .then((task) => {
-      res.status(200).json(true);
+Subtasks.patch("/", (req: Request, res: Response) => {
+  let _id = req.body.subtask._id;
+
+  SubtaskModel.updateOne({ _id }, { ...req.body.subtask })
+    .then(() => {
+      res.json(true);
     })
     .catch((error) => {
       res.status(500).json(error);

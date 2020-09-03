@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "@material-ui/core/Icon";
 
-import Gallery, { Image } from "./gallery/";
+import Gallery from "./gallery/";
 import Subtask from "./Subtask";
 import DragAndDrop from "./DragAndDrop";
 import classNames from "classnames";
@@ -9,40 +9,29 @@ import Dialog from "./Dialog";
 import { ITask } from "../redux/types";
 import { useDispatch } from "react-redux";
 import { addSubtask } from "../redux/actions/subtasks";
+import { deleteTask } from "../redux/actions/tasks";
+import { addImage } from "../redux/actions/gallery";
 
 export interface IFile extends File {
   url?: string;
 }
 
-const Task = ({ name, subtasks }: ITask) => {
+const Task = ({ name, _id, subtasks, gallery }: ITask) => {
   const [fullscreen, setFullscreen] = React.useState<boolean>(false);
   const [uploadImages, setUploadImages] = React.useState<IFile[]>([]);
 
   const [uploadImageError, setUploadImageError] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
+  const [subtaskName, setSubtaskName] = React.useState<string>("");
 
   const [editGallery, setEditGallery] = React.useState(false);
   const [editDescription, setEditDescription] = React.useState(false);
   const [showDelete, setShowDelete] = React.useState(false);
+  const [showAddSubtask, setShowAddSubtask] = React.useState(false);
 
   const [menu, setMenu] = React.useState(false);
 
   const imageUploadButton = React.useRef<any>(null);
-
-  const images: Image[] = [
-    {
-      __id: "5f435",
-      url: "https://picsum.photos/id/1/700",
-    },
-    {
-      __id: "5f4351",
-      url: "https://picsum.photos/id/1023/700",
-    },
-    {
-      __id: "5f4354",
-      url: "https://picsum.photos/700",
-    },
-  ];
 
   const dispatch = useDispatch();
 
@@ -92,17 +81,28 @@ const Task = ({ name, subtasks }: ITask) => {
   };
 
   const handleSubmit = () => {
-    console.log("deleted");
+    dispatch(deleteTask(_id));
     setShowDelete(false);
   };
 
-  const handleDecline = () => {
-    console.log("not deleted");
-    setShowDelete(false);
+  const handleSubmitAddSubtask = () => {
+    dispatch(addSubtask(_id, subtaskName));
+    setSubtaskName("");
+    setShowAddSubtask(false);
   };
 
-  const handleAddSubtaskClick = () => {
-    dispatch(addSubtask("5f4e45477640c129efc63bbe", "Privet"));
+  const handleSubtaskName = (e: any) => {
+    setSubtaskName(e.target.value);
+  };
+
+  const handleUploadClick = () => {
+    uploadImages.forEach((image) => {
+      dispatch(
+        addImage(_id, image, (progress) => {
+          console.log(progress);
+        })
+      );
+    });
   };
 
   React.useEffect(() => {}, []);
@@ -114,7 +114,7 @@ const Task = ({ name, subtasks }: ITask) => {
           onClick={() => setMenu(false)}
           className={`task__menu ${menu && "active"}`}
         >
-          <li onClick={handleAddSubtaskClick}>
+          <li onClick={() => setShowAddSubtask(true)}>
             <Icon>add</Icon>Добавить подзадачу
           </li>
           <li>
@@ -212,16 +212,21 @@ const Task = ({ name, subtasks }: ITask) => {
                   </p>
                   <input type="file" onChange={handleInputImageChange} />
                 </label>
-                <button className="button button_upload">
+                <button
+                  onClick={handleUploadClick}
+                  className="button button_upload"
+                >
                   <Icon>publish</Icon>Загрузить файлы
                 </button>
               </div>
             )}
           </div>
 
-          <div className="task__sidebar__gallery">
-            <Gallery images={images} />
-          </div>
+          {gallery.length > 0 && (
+            <div className="task__sidebar__gallery">
+              <Gallery images={gallery} />
+            </div>
+          )}
           <div className="task__sub-title">
             <h2>Описание</h2>
             <Icon
@@ -249,26 +254,37 @@ const Task = ({ name, subtasks }: ITask) => {
           {fullscreen && (
             <div className="task__sub-title">
               <h2>Подзадачи</h2>
-              <Icon
-                className="button--icon"
-                onClick={() => handleAddSubtaskClick}
-              >
-                add
-              </Icon>
+              <Icon className="button--icon">add</Icon>
             </div>
           )}
           {subtasks.map((subtask) => (
-            <Subtask {...subtask} />
+            <Subtask {...subtask} key={subtask._id} />
           ))}
         </div>
       </div>
       {showDelete && (
         <Dialog
           header="Удаление"
-          text="Вы действительно хотите удалить эту задачу?"
           onSubmit={handleSubmit}
-          onDecline={handleDecline}
-        />
+          onDecline={() => setShowDelete(false)}
+        >
+          <p>Вы действительно хотите удалить эту задачу?"</p>
+        </Dialog>
+      )}
+
+      {showAddSubtask && (
+        <Dialog
+          header="Добавление подзадачи"
+          onSubmit={handleSubmitAddSubtask}
+          onDecline={() => setShowAddSubtask(false)}
+        >
+          <p>Название:</p>
+          <input
+            type="text"
+            placeholder="Введите название"
+            onChange={handleSubtaskName}
+          />
+        </Dialog>
       )}
     </div>
   );
