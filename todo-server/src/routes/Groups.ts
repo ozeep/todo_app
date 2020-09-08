@@ -32,7 +32,7 @@ Groups.put("/", (req: Request, res: Response) => {
 
 Groups.patch("/", (req: Request, res: Response) => {
 	let _id = req.body._id;
-	console.log(req.body);
+
 	GroupModel.updateOne({ _id }, { ...req.body })
 		.then(() => {
 			res.status(200).json(true);

@@ -1,8 +1,8 @@
 const settings = {
-	JWT_SECTRET: "123",
+	JWT_SECTRET: "18434fdDAS1",
 	PORT: 3005,
-	CLOUDINARY_KEY: "571828926845937",
-	CLOUDINARY_SECRET: "VmpW56eBkJXBMl-wdeKnWqtappk",
+	CLOUDINARY_KEY: "Your`s cloudinary key",
+	CLOUDINARY_SECRET: "Your`s cloudinary secret",
 };
 
 export default settings;
