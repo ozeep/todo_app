@@ -1,40 +1,40 @@
 .slider {
-  position: relative;
-  height: 5px;
+	position: relative;
+	height: 8px;
 
-  border-radius: 5px;
-  border: 2px solid #f7f7f7;
+	border-radius: 5px;
+	border: 2px solid #f7f7f7;
 
-  margin-top: 10px;
+	margin-top: 10px;
 
-  &__bg {
-    height: 100%;
-    width: 100%;
-    background: #f7f7f7;
-    border-radius: 5px;
-    pointer-events: none;
-  }
+	&__bg {
+		height: 100%;
+		width: 100%;
+		background: #f7f7f7;
+		border-radius: 5px;
+		pointer-events: none;
+	}
 
-  &__fg {
-    position: absolute;
-    border-radius: 5px;
-    width: 40%;
-    height: 100%;
-    background: #f2994a;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-  }
+	&__fg {
+		position: absolute;
+		border-radius: 5px;
+		width: 40%;
+		height: 100%;
+		background: #f2994a;
+		top: 0;
+		left: 0;
+		pointer-events: none;
+	}
 
-  &__thumb {
-    position: absolute;
-    border-radius: 50%;
-    border: 2px solid #f7f7f7;
-    width: 13px;
-    height: 13px;
-    background: #f2994a;
-    top: -5px;
-    left: calc(40% - 6px);
-    user-select: none;
-  }
+	&__thumb {
+		position: absolute;
+		border-radius: 50%;
+		border: 2px solid #f7f7f7;
+		width: 13px;
+		height: 13px;
+		background: #f2994a;
+		top: -5px;
+		left: calc(40% - 6px);
+		user-select: none;
+	}
 }

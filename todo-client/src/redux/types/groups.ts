@@ -6,33 +6,34 @@ export const EDIT_GROUP = "EDIT_GROUP";
 export const FETCH_GROUPS = "FETCH_GROUPS";
 
 export interface IGroup {
-  _id: string;
-  name: string;
-  color: IColor;
+	_id?: string;
+	name?: string;
+	color?: IColor;
+	userId?: string;
 }
 
 interface AddGroupAction {
-  type: typeof ADD_GROUP;
-  payload: IGroup;
+	type: typeof ADD_GROUP;
+	payload: IGroup;
 }
 
 interface DeleteGroupAction {
-  type: typeof DELETE_GROUP;
-  payload: string;
+	type: typeof DELETE_GROUP;
+	payload: string;
 }
 
 interface FetchGroupsAction {
-  type: typeof FETCH_GROUPS;
-  payload: IGroup[];
+	type: typeof FETCH_GROUPS;
+	payload: IGroup[];
 }
 
 interface EditGroupAction {
-  type: typeof EDIT_GROUP;
-  payload: IGroup;
+	type: typeof EDIT_GROUP;
+	payload: IGroup;
 }
 
 export type GroupActionTypes =
-  | FetchGroupsAction
-  | AddGroupAction
-  | DeleteGroupAction
-  | EditGroupAction;
+	| FetchGroupsAction
+	| AddGroupAction
+	| DeleteGroupAction
+	| EditGroupAction;

@@ -1,4 +1,3 @@
-import { Mongoose } from "mongoose";
 import { Schema, model } from "mongoose";
 
 const GalleryModel = new Schema({

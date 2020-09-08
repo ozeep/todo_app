@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "es2016",
-    "module": "es2015",
+    "module": "commonjs",
     // "lib": [],
     "allowJs": true,
     "sourceMap": true,

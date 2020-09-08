@@ -6,5 +6,6 @@ export * from "./groups";
 export * from "./tasks";
 export * from "./subtasks";
 export * from "./gallery";
+export * from "./user";
 
 export type IThunkAction<T> = ThunkAction<void, T, unknown, Action<string>>;

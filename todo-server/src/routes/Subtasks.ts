@@ -6,58 +6,58 @@ import mongoose from "mongoose";
 const Subtasks = express.Router();
 
 Subtasks.post("/", (req: Request, res: Response) => {
-  let taskId = req.body.taskId;
+	let taskId = req.body.taskId;
 
-  SubtaskModel.find({ taskId })
-    .then((tasks) => {
-      res.json(tasks);
-    })
-    .catch(() => {
-      res.status(500).json("error");
-    });
+	SubtaskModel.find({ taskId })
+		.then((tasks) => {
+			res.json(tasks);
+		})
+		.catch(() => {
+			res.status(500).json("error");
+		});
 });
 
 Subtasks.put("/", (req: Request, res: Response) => {
-  let _id = req.body.taskId;
+	let _id = req.body.taskId;
 
-  new SubtaskModel(req.body.subtask).save().then((subtask) => {
-    TaskModel.findOne({ _id })
-      .then((task: any) => {
-        task.subtasks.push(subtask);
-        task.save().then((task: mongoose.Document) => {
-          task.populate("subtasks", (_, doc) => {
-            res.json(doc);
-          });
-        });
-      })
-      .catch((error) => {
-        res.status(500).json(error);
-      });
-  });
+	new SubtaskModel(req.body.subtask).save().then((subtask) => {
+		TaskModel.findOne({ _id })
+			.then((task: any) => {
+				task.subtasks.push(subtask);
+				task.save().then((task: mongoose.Document) => {
+					task.populate("gallery").populate("subtasks", (_, doc) => {
+						res.json(doc);
+					});
+				});
+			})
+			.catch((error) => {
+				res.status(500).json(error);
+			});
+	});
 });
 
 Subtasks.patch("/", (req: Request, res: Response) => {
-  let _id = req.body.subtask._id;
+	let _id = req.body.subtask._id;
 
-  SubtaskModel.updateOne({ _id }, { ...req.body.subtask })
-    .then(() => {
-      res.json(true);
-    })
-    .catch((error) => {
-      res.status(500).json(error);
-    });
+	SubtaskModel.updateOne({ _id }, { ...req.body.subtask })
+		.then(() => {
+			res.json(true);
+		})
+		.catch((error) => {
+			res.status(500).json(error);
+		});
 });
 
 Subtasks.delete("/", (req: Request, res: Response) => {
-  let _id = req.query;
+	let _id = req.query;
 
-  SubtaskModel.deleteOne({ _id })
-    .then((task) => {
-      res.status(200).json(true);
-    })
-    .catch((error) => {
-      res.status(500).json(error);
-    });
+	SubtaskModel.deleteOne({ _id })
+		.then((task) => {
+			res.status(200).json(true);
+		})
+		.catch((error) => {
+			res.status(500).json(error);
+		});
 });
 
 export default Subtasks;
