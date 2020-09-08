@@ -1,10 +1,8 @@
 import React from "react";
-import AddGroup from "./AddGroup";
 import { connect } from "react-redux";
 import { IGroup } from "../redux/types";
-import Group from "./Group";
+import { Group, AddGroup } from "./";
 import { useHistory } from "react-router-dom";
-
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface ISidebar {

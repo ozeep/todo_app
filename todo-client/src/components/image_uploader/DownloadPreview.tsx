@@ -1,8 +1,8 @@
 import React from "react";
 import { IFile } from "../Task";
 import classNames from "classnames";
-import Icon from "@material-ui/core/Icon";
 import RadialProgressbar from "../progressbar/radial/RadialProgressbar";
+import { AiOutlineDelete } from "react-icons/ai";
 
 interface IDownloadPreview {
 	onRemove(index: number): void;
@@ -31,7 +31,7 @@ const DownloadPreview = ({ uploadImages, onRemove }: IDownloadPreview) => {
 									className="drag_image_preview__remove_button"
 									onClick={() => onRemove(index)}
 								>
-									<Icon>delete</Icon>
+									<AiOutlineDelete />
 								</div>
 							)}
 							{image.downloadProgress && (

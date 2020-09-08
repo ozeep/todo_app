@@ -1,12 +1,12 @@
 import React from "react";
 import ColorPicker, { IColor } from "./ColorPicker";
-import Icon from "@material-ui/core/Icon";
 import { Link, useRouteMatch } from "react-router-dom";
 import classNames from "classnames";
 import { IGroup } from "../redux/types";
 import Dialog from "./Dialog";
 import { useDispatch } from "react-redux";
 import { deleteGroup, editGroup } from "../redux/actions/groups";
+import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 
 const Group = ({ name, _id, color }: IGroup) => {
 	const [colorState, setColorState] = React.useState(color!);
@@ -58,12 +58,14 @@ const Group = ({ name, _id, color }: IGroup) => {
 					<Link to={`/tasks/${_id}`}>
 						<p>{groupName}</p>
 					</Link>
-					<Icon className="button--icon" onClick={() => setEdit(true)}>
-						create
-					</Icon>
-					<Icon className="button--icon" onClick={() => setShowDelete(true)}>
-						delete
-					</Icon>
+					<AiOutlineEdit
+						className="button--icon"
+						onClick={() => setEdit(true)}
+					/>
+					<AiOutlineDelete
+						className="button--icon"
+						onClick={() => setShowDelete(true)}
+					/>
 				</>
 			)}
 

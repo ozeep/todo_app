@@ -1,9 +1,13 @@
 import React from "react";
-import Icon from "@material-ui/core/Icon";
 import classNames from "classnames";
 
 import "./gallery.scss";
 import { IGallery } from "../../redux/types";
+import {
+	AiOutlineClose,
+	AiOutlineDoubleLeft,
+	AiOutlineDoubleRight,
+} from "react-icons/ai";
 
 export interface GalleryComponent {
 	images: IGallery[];
@@ -150,16 +154,16 @@ const Gallery = ({ images, settings }: GalleryComponent) => {
 					</div>
 				</div>
 				<div className="gallery__button left" onClick={() => changeSlide(-1)}>
-					<Icon>keyboard_arrow_left</Icon>
+					<AiOutlineDoubleLeft />
 				</div>
 				<div className="gallery__button right" onClick={() => changeSlide(1)}>
-					<Icon>keyboard_arrow_right</Icon>
+					<AiOutlineDoubleRight />
 				</div>
 				<div
 					className="gallery__button close"
 					onClick={() => setFullscreen(false)}
 				>
-					<Icon>close</Icon>
+					<AiOutlineClose />
 				</div>
 			</div>
 		</div>

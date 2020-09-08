@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import LoginForm from "../components/forms/LoginForm";
+import RegisterForm from "../components/forms/RegisterForm";
 
 const LoginPage = () => {
 	const [signIn, setSignIn] = React.useState(true);

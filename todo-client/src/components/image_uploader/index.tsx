@@ -1,11 +1,11 @@
 import React from "react";
 import DragAndDrop from "../DragAndDrop";
 import DownloadPreview from "./DownloadPreview";
-import Icon from "@material-ui/core/Icon";
 import { IFile } from "../Task";
 import { addImage } from "../../redux/actions/gallery";
 import { useDispatch } from "react-redux";
 import ID from "../../utils/id";
+import { AiOutlinePlus, AiOutlineCloudUpload } from "react-icons/ai";
 
 interface IImageUploader {
 	taskId: string;
@@ -114,7 +114,7 @@ const ImageUploader = ({ taskId }: IImageUploader) => {
 				<div className="task__sidebar__add_image__buttons">
 					<label className="button button_add">
 						<p>
-							<Icon>add</Icon>Добавить файл
+							<AiOutlinePlus />
 						</p>
 						<input
 							type="file"
@@ -123,7 +123,7 @@ const ImageUploader = ({ taskId }: IImageUploader) => {
 						/>
 					</label>
 					<button onClick={handleUploadClick} className="button button_upload">
-						<Icon>publish</Icon>Загрузить файлы
+						<AiOutlineCloudUpload />
 					</button>
 				</div>
 			)}

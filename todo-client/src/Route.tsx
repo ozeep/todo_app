@@ -1,9 +1,9 @@
 import React from "react";
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
+import LoginPage from "./pages/LoginPage";
 import { connect, useDispatch } from "react-redux";
 import { fetchGroups } from "./redux/actions/groups";
-import LiquidLoader from "./components/Loader/LiquidLoader";
+import LiquidLoader from "./components/loader/LiquidLoader";
 
 const Route = ({ userState }: any) => {
 	const dispatch = useDispatch();

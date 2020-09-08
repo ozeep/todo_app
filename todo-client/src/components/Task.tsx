@@ -1,15 +1,23 @@
-import React, { useRef, RefObject } from "react";
-import Icon from "@material-ui/core/Icon";
+import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
-import Gallery from "./gallery/";
-import Subtask from "./Subtask";
-import Dialog from "./Dialog";
+import { Gallery, Subtask, Dialog, ImageUploader } from "./";
+
 import { ITask } from "../redux/types";
 import { useDispatch } from "react-redux";
 import { addSubtask } from "../redux/actions/subtasks";
 import { deleteTask, editTask } from "../redux/actions/tasks";
-import ImageUploader from "./image_uploader";
+
+import {
+	AiOutlineDelete,
+	AiOutlinePlus,
+	AiOutlineEdit,
+	AiOutlineClose,
+	AiOutlineCheck,
+	AiOutlineFullscreen,
+	AiOutlineFullscreenExit,
+	AiOutlineMore,
+} from "react-icons/ai";
 
 export interface IFile extends File {
 	url?: string;
@@ -70,13 +78,16 @@ const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 						className={`task__menu ${menu && "active"}`}
 					>
 						<li onClick={() => setShowAddSubtask(true)}>
-							<Icon>add</Icon>Добавить подзадачу
+							<AiOutlineEdit />
+							Добавить подзадачу
 						</li>
 						<li onClick={() => setEditTaskState(true)}>
-							<Icon>create</Icon>Редактировать задачу
+							<AiOutlinePlus />
+							Редактировать задачу
 						</li>
 						<li onClick={() => setShowDelete(true)}>
-							<Icon>delete</Icon>Удалить задачу
+							<AiOutlineDelete />
+							Удалить задачу
 						</li>
 					</ul>
 				)}
@@ -84,12 +95,10 @@ const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 					<>
 						<p className="task__header__title">{name}</p>
 						{fullscreen && (
-							<Icon
+							<AiOutlineEdit
 								className="button--icon button--edit"
 								onClick={() => setEditTaskState(true)}
-							>
-								edit
-							</Icon>
+							/>
 						)}
 					</>
 				) : (
@@ -99,15 +108,14 @@ const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 							value={taskName}
 							onChange={(e) => setTaskName(e.target.value)}
 						/>
-						<Icon
+						<AiOutlineClose
 							className="button--icon decline"
 							onClick={() => setEditTaskState(false)}
-						>
-							close
-						</Icon>
-						<Icon className="button--icon accept" onClick={handleEditTaskname}>
-							done
-						</Icon>
+						/>
+						<AiOutlineCheck
+							className="button--icon accept"
+							onClick={handleEditTaskname}
+						/>
 					</>
 				)}
 				{!editTaskState && (
@@ -117,22 +125,18 @@ const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 							className="task__button"
 						>
 							{!fullscreen ? (
-								<Icon className="button--icon button--fullscreen">
-									fullscreen
-								</Icon>
+								<AiOutlineFullscreen className="button--icon button--fullscreen" />
 							) : (
-								<Icon className="button--icon button--fullscreen">
-									fullscreen_exit
-								</Icon>
+								<AiOutlineFullscreenExit className="button--icon button--fullscreen" />
 							)}
 						</div>
 
-						<Icon
-							onClick={() => setMenu(!menu)}
-							className="button--icon button--menu"
-						>
-							more_horiz
-						</Icon>
+						{!fullscreen && (
+							<AiOutlineMore
+								onClick={() => setMenu(!menu)}
+								className="button--icon button--menu"
+							/>
+						)}
 					</div>
 				)}
 			</div>
@@ -157,26 +161,20 @@ const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 							<div className="task__sub-title">
 								<h2>Описание</h2>
 								{!editDescription ? (
-									<Icon
-										className="button--icon"
+									<AiOutlineEdit
+										className="button--icon dark"
 										onClick={() => setEditDescription(true)}
-									>
-										mode_edit
-									</Icon>
+									/>
 								) : (
 									<>
-										<Icon
+										<AiOutlineClose
 											className="button--icon decline"
 											onClick={() => setEditDescription(false)}
-										>
-											close
-										</Icon>
-										<Icon
+										/>
+										<AiOutlineCheck
 											className="button--icon accept"
 											onClick={handleEditDescription}
-										>
-											done
-										</Icon>
+										/>
 									</>
 								)}
 							</div>
@@ -199,26 +197,20 @@ const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 								<div className="task__sub-title">
 									<h2>Подзадачи</h2>
 									{!addSubtaskState ? (
-										<Icon
-											className="button--icon"
+										<AiOutlinePlus
+											className="button--icon dark"
 											onClick={() => setAddSubtaskState(true)}
-										>
-											add
-										</Icon>
+										/>
 									) : (
 										<>
-											<Icon
+											<AiOutlineClose
 												className="button--icon decline"
 												onClick={() => setAddSubtaskState(false)}
-											>
-												close
-											</Icon>
-											<Icon
+											/>
+											<AiOutlineCheck
 												className="button--icon accept"
 												onClick={handleSubmitAddSubtask}
-											>
-												done
-											</Icon>
+											/>
 										</>
 									)}
 								</div>

@@ -48,7 +48,7 @@ const AddGroup = ({ userId }: any) => {
 				/>
 			) : (
 				<div className="group_block__title">
-					<p style={{ color: `#717171` }} onClick={() => setEdit(true)}>
+					<p style={{ color: `#808080` }} onClick={() => setEdit(true)}>
 						Добавить проект
 					</p>
 				</div>

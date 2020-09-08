@@ -3,13 +3,12 @@ import { useDispatch } from "react-redux";
 
 import { useLocation, Switch, Route, useHistory } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import TasksContainer from "../components/TasksContainer";
-import { Icon } from "@material-ui/core";
 import { addTask } from "../redux/actions/tasks";
-import Dialog from "../components/Dialog";
-import Sidebar from "../components/Sidebar";
-import AlertContainer from "../components/AlertContainer";
 import { userLogout } from "../redux/actions/user";
+
+import { Dialog, Sidebar, AlertContainer, TasksContainer } from "../components";
+
+import { AiOutlinePlus } from "react-icons/ai";
 
 const HomePage = () => {
 	const [showAddTask, setShowAddTask] = React.useState(false);
@@ -19,12 +18,14 @@ const HomePage = () => {
 	const { pathname } = useLocation();
 	const history = useHistory();
 
-	const pathLink = pathname.includes("/tasks/")
+	const taskLink = pathname.includes("/tasks/")
 		? pathname.replace("/tasks/", "")
 		: "";
 
+	const home = pathname === "/home/";
+
 	const handleSubmitAddTask = () => {
-		dispatch(addTask(pathLink, taskName));
+		dispatch(addTask(taskLink, taskName));
 		setTaskName("");
 		setShowAddTask(false);
 	};
@@ -53,19 +54,33 @@ const HomePage = () => {
 								onClick={() => setShowAddTask(true)}
 								className="button reversed"
 							>
-								<Icon>add</Icon>
+								<AiOutlinePlus />
 								<p>Добавить задачу</p>
 							</button>
 						</div>
-						<PerfectScrollbar>
-							<div className="content__tasks">
-								<Switch>
-									<Route path={`/tasks/:groupId`}>
-										<TasksContainer />
-									</Route>
-								</Switch>
+						{!home ? (
+							<PerfectScrollbar>
+								<div className="content__tasks">
+									<Switch>
+										<Route path={`/tasks/:groupId`}>
+											<TasksContainer />
+										</Route>
+									</Switch>
+								</div>
+							</PerfectScrollbar>
+						) : (
+							<div className="home-wrapper">
+								<h1 className="home__header">
+									Добро пожаловать на <span>DOOZEE</span>
+								</h1>
+								<div className="home__content">
+									<p>Для начала работы с DOOZEE создайте свой первый проект</p>
+									<p>
+										Нажмите на кнопку "Добавить проект" для создания проекта
+									</p>
+								</div>
 							</div>
-						</PerfectScrollbar>
+						)}
 					</div>
 				</div>
 			</div>
