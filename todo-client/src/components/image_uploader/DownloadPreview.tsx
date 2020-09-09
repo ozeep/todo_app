@@ -1,5 +1,5 @@
 import React from "react";
-import { IFile } from "../Task";
+import { IFile } from "../";
 import classNames from "classnames";
 import RadialProgressbar from "../progressbar/radial/RadialProgressbar";
 import { AiOutlineDelete } from "react-icons/ai";

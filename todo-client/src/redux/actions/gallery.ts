@@ -2,7 +2,7 @@ import API from "../../utils/API";
 import { addAlert } from "./alerts";
 
 import { DELETE_IMAGE, IThunkAction, ITask, EDIT_TASK } from "../types";
-import { IFile } from "../../components/Task";
+import { IFile } from "../../components/";
 
 export const deleteImage = (_id: string): IThunkAction<string> => (
 	dispatch

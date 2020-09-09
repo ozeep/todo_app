@@ -1,7 +1,7 @@
 import React from "react";
 import DragAndDrop from "../DragAndDrop";
 import DownloadPreview from "./DownloadPreview";
-import { IFile } from "../Task";
+import { IFile } from "../";
 import { addImage } from "../../redux/actions/gallery";
 import { useDispatch } from "react-redux";
 import ID from "../../utils/id";
