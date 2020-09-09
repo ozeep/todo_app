@@ -46,6 +46,7 @@ const Gallery = ({ images, settings }: GalleryComponent) => {
 		setPreviewWidth(width);
 
 		previewContainer.current!.style.width = `${previewNumber * width}px`;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fullscreen, previewNumber]);
 
 	React.useEffect(() => {

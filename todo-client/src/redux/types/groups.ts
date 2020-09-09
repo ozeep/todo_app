@@ -1,4 +1,4 @@
-import { IColor } from "../../components/ColorPicker";
+import { IColor } from "../../components";
 
 export const ADD_GROUP = "ADD_GROUP";
 export const DELETE_GROUP = "DELETE_GROUP";

@@ -19,12 +19,6 @@ import {
 	AiOutlineMore,
 } from "react-icons/ai";
 
-export interface IFile extends File {
-	url?: string;
-	id?: string;
-	downloadProgress?: number;
-}
-
 const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 	const [fullscreen, setFullscreen] = React.useState(false);
 
@@ -47,6 +41,7 @@ const Task = ({ name, _id, subtasks, gallery, description }: ITask) => {
 	};
 
 	const handleSubmitAddSubtask = () => {
+		if (!subtaskName) return;
 		dispatch(addSubtask(_id, subtaskName));
 		setSubtaskName("");
 		setShowAddSubtask(false);

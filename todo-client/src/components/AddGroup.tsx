@@ -1,5 +1,5 @@
 import React from "react";
-import ColorPicker, { IColor } from "./ColorPicker";
+import { IColor, ColorPicker } from "./";
 import { useDispatch, connect } from "react-redux";
 import { addGroup } from "../redux/actions/groups";
 
@@ -25,6 +25,7 @@ const AddGroup = ({ userId }: any) => {
 	};
 
 	const handleAddGroup = () => {
+		if (!name) return;
 		dispatch(addGroup({ name, color, userId }));
 		setEdit(false);
 		setName("");

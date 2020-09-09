@@ -1,5 +1,5 @@
 import React from "react";
-import ColorPicker, { IColor } from "./ColorPicker";
+import ColorPicker from "./ColorPicker";
 import { Link, useRouteMatch } from "react-router-dom";
 import classNames from "classnames";
 import { IGroup } from "../redux/types";
@@ -7,6 +7,7 @@ import Dialog from "./Dialog";
 import { useDispatch } from "react-redux";
 import { deleteGroup, editGroup } from "../redux/actions/groups";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { IColor } from ".";
 
 const Group = ({ name, _id, color }: IGroup) => {
 	const [colorState, setColorState] = React.useState(color!);

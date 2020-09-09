@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { connect, useDispatch } from "react-redux";
-import { IUserState } from "../../redux/types";
+import { IUserState, ReduxDispatch } from "../../redux/types";
 import { userLogin } from "../../redux/actions/user";
 
 interface ILoginFormValues {
@@ -33,15 +33,18 @@ function validatePassword(value: string) {
 
 const LoginForm = ({ error }: IUserState) => {
 	const initialValues: ILoginFormValues = { email: "", password: "" };
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<ReduxDispatch>();
 
 	return (
 		<Formik
 			initialValues={initialValues}
 			onSubmit={(values, actions) => {
-				actions.setSubmitting(true);
-				dispatch(userLogin(values));
-				actions.setSubmitting(false);
+				const submit = async () => {
+					dispatch(userLogin(values)).then(() => {
+						actions.setSubmitting(false);
+					});
+				};
+				submit();
 			}}
 		>
 			{({ errors, isSubmitting }) => (
@@ -61,7 +64,7 @@ const LoginForm = ({ error }: IUserState) => {
 						placeholder="Password"
 						validate={validatePassword}
 					/>
-					<a href="#">Забыли пароль?</a>
+					<p></p>
 					<button type="submit" disabled={isSubmitting}>
 						Войти
 					</button>

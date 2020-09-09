@@ -8,7 +8,7 @@ import { userLogout } from "../redux/actions/user";
 
 import { Dialog, Sidebar, AlertContainer, TasksContainer } from "../components";
 
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineLogout } from "react-icons/ai";
 
 const HomePage = () => {
 	const [showAddTask, setShowAddTask] = React.useState(false);
@@ -25,6 +25,7 @@ const HomePage = () => {
 	const home = pathname === "/home/";
 
 	const handleSubmitAddTask = () => {
+		if (!taskName) return;
 		dispatch(addTask(taskLink, taskName));
 		setTaskName("");
 		setShowAddTask(false);
@@ -43,6 +44,7 @@ const HomePage = () => {
 						<h1>DOOZEE</h1>
 					</div>
 					<button className="button header__logout" onClick={handleLogoutClick}>
+						<AiOutlineLogout />
 						Logout
 					</button>
 				</div>

@@ -10,3 +10,15 @@ export { default as ColorPicker } from "./ColorPicker";
 export { default as AlertContainer } from "./AlertContainer";
 export { default as Gallery } from "./gallery/";
 export { default as ImageUploader } from "./image_uploader";
+
+export interface IColor {
+	hue: number;
+	saturation: number;
+	light: number;
+}
+
+export interface IFile extends File {
+	url?: string;
+	id?: string;
+	downloadProgress?: number;
+}

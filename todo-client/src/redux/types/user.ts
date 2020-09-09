@@ -5,6 +5,7 @@ export const USER_SETERROR = "USER_SETERROR";
 export const USER_ISLOGED = "USER_ISLOGED";
 
 export interface IUser {
+	_id?: string;
 	name?: string;
 	email?: string;
 	password?: string;

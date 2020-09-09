@@ -6,11 +6,13 @@ import {
 	USER_LOGOUT,
 	IUser,
 	USER_SETERROR,
-	IUserState,
+	IAsyncThunkAction,
 } from "../types";
 
-export const userLogin = (user: IUser): IThunkAction<IUser> => (dispatch) => {
-	API.post("user/login", { user })
+export const userLogin = (user: IUser): IAsyncThunkAction<IUser> => (
+	dispatch
+) => {
+	return API.post("user/login", { user })
 		.then(({ data }: any) => {
 			const { user, token, error } = data;
 
@@ -23,12 +25,12 @@ export const userLogin = (user: IUser): IThunkAction<IUser> => (dispatch) => {
 		});
 };
 
-export const isUserLoged = (): IThunkAction<IUserState> => (dispatch) => {
+export const isUserLoged = (): IAsyncThunkAction<IUser> => (dispatch) => {
 	let token = localStorage.getItem("token");
 
 	if (!token) dispatch({ type: USER_LOGOUT, payload: { isLoged: false } });
 
-	API.post("user/isloged", { token })
+	return API.post("user/isloged", { token })
 		.then(({ data }: any) => {
 			dispatch({ type: USER_LOGIN, payload: data });
 		})
@@ -42,10 +44,10 @@ export const userLogout = (): IThunkAction<string> => (dispatch) => {
 	localStorage.removeItem("token");
 };
 
-export const userRegister = (user: IUser): IThunkAction<IUserState> => (
+export const userRegister = (user: IUser): IAsyncThunkAction<IUser> => (
 	dispatch
 ) => {
-	API.post("user/register", { user })
+	return API.post("user/register", { user })
 		.then(({ data }: any) => {
 			const { user, token, error } = data;
 			if (error) return dispatch({ type: USER_SETERROR, payload: error });

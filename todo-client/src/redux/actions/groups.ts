@@ -1,5 +1,4 @@
 import { addAlert } from "./alerts";
-import { IColor } from "../../components/ColorPicker";
 import API from "../../utils/API";
 
 import {
@@ -9,6 +8,7 @@ import {
 	EDIT_GROUP,
 	IGroup,
 	IThunkAction,
+	IAsyncThunkAction,
 } from "../types";
 
 export const addGroup = (group: IGroup): IThunkAction<IGroup[]> => (
@@ -23,10 +23,10 @@ export const addGroup = (group: IGroup): IThunkAction<IGroup[]> => (
 		});
 };
 
-export const fetchGroups = (userId: string): IThunkAction<IGroup[]> => (
+export const fetchGroups = (userId: string): IAsyncThunkAction<IGroup[]> => (
 	dispatch
 ) => {
-	API.post("groups", { userId })
+	return API.post("groups", { userId })
 		.then(({ data }) => {
 			dispatch({ type: FETCH_GROUPS, payload: data });
 		})

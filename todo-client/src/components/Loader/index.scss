@@ -74,3 +74,38 @@ $r: 1.5em;
 		transform: rotate(1turn) translate(2 * $r);
 	}
 }
+
+$inactive: #aaa;
+$active: #fc7474;
+$speed: 1.2s;
+$size: 50px;
+$unit: $size / 16;
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.spinner-container {
+	width: 90%;
+	height: 90%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.spinner-huge-wave-out {
+	display: block;
+	float: left;
+	width: $size;
+	height: $size;
+	border-radius: 50%;
+	border: $unit solid $inactive;
+	animation: spinner $speed linear infinite;
+	box-shadow: (-$unit/2) (-$unit/2) 0 ($unit * 2) $active;
+}

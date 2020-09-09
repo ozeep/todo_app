@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { IFile } from "./Task";
+import { IFile } from "./";
 import { AiOutlineCloudDownload } from "react-icons/ai";
 
 interface DragAndDrop {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { connect, useDispatch } from "react-redux";
-import { IUserState } from "../../redux/types";
-import { userLogin, userRegister } from "../../redux/actions/user";
+import { IUserState, ReduxDispatch } from "../../redux/types";
+import { userRegister } from "../../redux/actions/user";
 
 interface IRegisterFormValues {
 	name: string;
@@ -46,14 +46,18 @@ const RegisterForm = ({ error }: IUserState) => {
 		password: "",
 		name: "",
 	};
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<ReduxDispatch>();
 
 	return (
 		<Formik
 			initialValues={initialValues}
 			onSubmit={(values, actions) => {
-				dispatch(userRegister(values));
-				actions.setSubmitting(false);
+				const submit = async () => {
+					dispatch(userRegister(values)).then(() => {
+						actions.setSubmitting(false);
+					});
+				};
+				submit();
 			}}
 		>
 			{({ isSubmitting, errors }) => (

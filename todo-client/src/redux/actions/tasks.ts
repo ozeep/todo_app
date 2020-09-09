@@ -7,6 +7,7 @@ import {
 	IThunkAction,
 	EDIT_TASK,
 	DELETE_TASK,
+	IAsyncThunkAction,
 } from "../types";
 
 export const deleteTask = (_id: string): IThunkAction<string> => (dispatch) => {
@@ -41,10 +42,10 @@ export const editTask = (task: ITask): IThunkAction<ITask> => (dispatch) => {
 		});
 };
 
-export const fetchTasks = (groupId: string): IThunkAction<ITask[]> => (
+export const fetchTasks = (groupId: string): IAsyncThunkAction<ITask[]> => (
 	dispatch
 ) => {
-	API.post("tasks", { groupId })
+	return API.post("tasks", { groupId })
 		.then(({ data }) => {
 			dispatch({ type: FETCH_TASKS, payload: data });
 		})
