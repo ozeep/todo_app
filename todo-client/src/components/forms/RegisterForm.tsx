@@ -3,6 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { connect, useDispatch } from "react-redux";
 import { IUserState, ReduxDispatch } from "../../redux/types";
 import { userRegister } from "../../redux/actions/user";
+import Spinner from "../loader/Spinner";
 
 interface IRegisterFormValues {
 	name: string;
@@ -85,9 +86,13 @@ const RegisterForm = ({ error }: IUserState) => {
 						validate={validatePassword}
 					/>
 					<p></p>
-					<button type="submit" disabled={isSubmitting}>
-						Зарегистрироваться
-					</button>
+					{isSubmitting ? (
+						<Spinner />
+					) : (
+						<button type="submit" disabled={isSubmitting}>
+							Зарегистрироваться
+						</button>
+					)}
 				</Form>
 			)}
 		</Formik>

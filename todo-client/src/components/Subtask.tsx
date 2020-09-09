@@ -1,10 +1,15 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import classNames from "classnames";
 import { Dialog } from "./";
 import { ISubtask } from "../redux/types";
 import { useDispatch } from "react-redux";
 import { deleteSubtask, editSubtask } from "../redux/actions/subtasks";
-import { AiOutlineDelete } from "react-icons/ai";
+import {
+	AiOutlineDelete,
+	AiOutlineEdit,
+	AiOutlineClose,
+	AiOutlineCheck,
+} from "react-icons/ai";
 
 interface Subtask extends ISubtask {
 	onDelete?(): void;
@@ -12,8 +17,20 @@ interface Subtask extends ISubtask {
 
 const Subtask = ({ name, compleated, _id }: Subtask) => {
 	const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
+	const [editName, setEditName] = React.useState(false);
+	const [nameValue, setNameValue] = React.useState(name);
 
 	const dispatch = useDispatch();
+
+	const handleSubtaskName = (e: ChangeEvent<HTMLInputElement>) => {
+		setNameValue(e.target.value);
+	};
+
+	const handleSubmitEditName = () => {
+		if (!nameValue) return;
+		dispatch(editSubtask({ _id, compleated, name: nameValue }));
+		setEditName(false);
+	};
 
 	const deleteTask = () => {
 		setShowDeleteDialog(true);
@@ -44,11 +61,38 @@ const Subtask = ({ name, compleated, _id }: Subtask) => {
 				<label htmlFor="checkbox"></label>
 			</div>
 
-			<p className="task__sub_task__name">{name}</p>
-			<AiOutlineDelete
-				onClick={() => deleteTask()}
-				className="button--icon dark"
-			/>
+			{!editName ? (
+				<>
+					<p className="task__sub_task__name">{name}</p>
+					<AiOutlineEdit
+						onClick={() => setEditName(true)}
+						className="button--icon dark"
+					/>
+					<AiOutlineDelete
+						onClick={() => deleteTask()}
+						className="button--icon dark"
+					/>
+				</>
+			) : (
+				<>
+					<input
+						className="dark"
+						type="text"
+						value={nameValue}
+						placeholder="Введите название..."
+						onChange={handleSubtaskName}
+					/>
+					<AiOutlineClose
+						className="button--icon decline"
+						onClick={() => setEditName(false)}
+					/>
+					<AiOutlineCheck
+						className="button--icon accept"
+						onClick={handleSubmitEditName}
+					/>
+				</>
+			)}
+
 			{showDeleteDialog && (
 				<Dialog
 					header="Удаление"
