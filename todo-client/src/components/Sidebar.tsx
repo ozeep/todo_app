@@ -39,7 +39,7 @@ const Sidebar = () => {
 			) : (
 				<>
 					<div className="sidebar__header">
-						<AddGroup />
+						<AddGroup userId={user!._id!} />
 						<div className="separator"></div>
 					</div>
 

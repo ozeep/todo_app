@@ -1,9 +1,13 @@
 import React from "react";
 import { IColor, ColorPicker } from "./";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addGroup } from "../redux/actions/groups";
 
-const AddGroup = ({ userId }: any) => {
+interface IAddGroup {
+	userId: string;
+}
+
+const AddGroup = ({ userId }: IAddGroup) => {
 	const [color, setColor] = React.useState({
 		hue: 128,
 		saturation: 37,
@@ -70,6 +74,4 @@ const AddGroup = ({ userId }: any) => {
 	);
 };
 
-export default connect(({ user }: any) => ({
-	userId: user.user._id,
-}))(AddGroup);
+export default AddGroup;

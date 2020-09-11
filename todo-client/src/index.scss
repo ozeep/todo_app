@@ -826,9 +826,6 @@ $gd: "";
 	}
 
 	&__sub_task {
-		&:nth-child(even) {
-			background: #ebebeb;
-		}
 		display: flex;
 		flex-flow: row nowrap;
 		padding: 10px;
@@ -836,9 +833,11 @@ $gd: "";
 		align-items: center;
 		justify-content: flex-start;
 
-		background: #f5f5f5;
+		background: #ffffff;
 		color: #797979;
 		max-width: 100%;
+
+		border-bottom: 2px solid #f0f0f0;
 
 		&.compleated {
 			p {
