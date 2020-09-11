@@ -1,34 +1,36 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
-import { IGroup, ReduxDispatch, IUserState } from "../redux/types";
+import { useDispatch, useSelector } from "react-redux";
+import { ReduxDispatch } from "../redux/types";
 import { Group, AddGroup } from "./";
 import { useHistory } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { fetchGroups } from "../redux/actions/groups";
 import Spinner from "./loader/Spinner";
+import { RootState } from "../redux/reducers";
 
-interface ISidebar {
-	groups?: IGroup[];
-	userState?: IUserState;
-}
-
-const Sidebar = ({ groups, userState }: ISidebar) => {
+const Sidebar = () => {
 	const history = useHistory();
 	const dispatch = useDispatch<ReduxDispatch>();
 	const [isLodaing, setisLoading] = React.useState(false);
 
+	const user = useSelector((state: RootState) => state.user.user);
+	const groups = useSelector((state: RootState) => state.groups);
+
 	React.useEffect(() => {
 		if (groups && groups.length > 0) history.push(`/tasks/${groups[0]._id}`);
 		else history.push(`/home/`);
-	});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [groups]);
 
 	React.useEffect(() => {
 		setisLoading(true);
-		if (userState)
-			dispatch(fetchGroups(userState!.user!._id!)).then(() => {
+
+		if (user)
+			dispatch(fetchGroups(user!._id!)).then(() => {
 				setisLoading(false);
 			});
-	}, [userState]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user]);
 
 	return (
 		<div className="sidebar">
@@ -54,7 +56,4 @@ const Sidebar = ({ groups, userState }: ISidebar) => {
 	);
 };
 
-export default connect(({ groups, user }: any) => ({
-	groups,
-	userState: user,
-}))(Sidebar);
+export default Sidebar;

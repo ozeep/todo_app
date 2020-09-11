@@ -8,8 +8,10 @@ import user from "./user";
 const reducer = combineReducers({
 	groups,
 	alerts,
-	tasks,
 	user,
+	tasks,
 });
 
 export default reducer;
+
+export type RootState = ReturnType<typeof reducer>;

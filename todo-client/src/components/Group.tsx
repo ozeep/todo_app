@@ -59,14 +59,16 @@ const Group = ({ name, _id, color }: IGroup) => {
 					<Link to={`/tasks/${_id}`}>
 						<p>{groupName}</p>
 					</Link>
-					<AiOutlineEdit
-						className="button--icon"
-						onClick={() => setEdit(true)}
-					/>
-					<AiOutlineDelete
-						className="button--icon"
-						onClick={() => setShowDelete(true)}
-					/>
+					<div className="group_block__buttons">
+						<AiOutlineEdit
+							className="button--icon"
+							onClick={() => setEdit(true)}
+						/>
+						<AiOutlineDelete
+							className="button--icon"
+							onClick={() => setShowDelete(true)}
+						/>
+					</div>
 				</>
 			)}
 

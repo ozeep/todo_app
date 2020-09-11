@@ -13,7 +13,6 @@ export interface IUser {
 
 export interface IUserState {
 	user?: IUser;
-	token?: string;
 	error?: string;
 	isLoged?: boolean;
 }
@@ -25,7 +24,7 @@ interface userLoginAction {
 
 interface userSetErrorAction {
 	type: typeof USER_SETERROR;
-	payload: IUser;
+	payload: string;
 }
 
 interface userLogoutAction {

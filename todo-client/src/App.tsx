@@ -1,14 +1,17 @@
 import React from "react";
 import { isUserLoged } from "./redux/actions/user";
 import LoginPage from "./pages/LoginPage";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LiquidLoader from "./components/loader/LiquidLoader";
 import HomePage from "./pages/HomePage";
 import { ReduxDispatch } from "./redux/types";
+import { RootState } from "./redux/reducers";
 
-function App({ userState }: any) {
+function App() {
 	const [isLoading, setIsLoading] = React.useState(false);
 	const dispatch = useDispatch<ReduxDispatch>();
+
+	const user = useSelector((state: RootState) => state.user);
 
 	React.useEffect(() => {
 		setIsLoading(true);
@@ -23,7 +26,7 @@ function App({ userState }: any) {
 			<div className="App">
 				{isLoading ? (
 					<LiquidLoader />
-				) : userState.isLoged ? (
+				) : user.isLoged ? (
 					<HomePage />
 				) : (
 					<LoginPage />
@@ -33,6 +36,4 @@ function App({ userState }: any) {
 	);
 }
 
-export default connect(({ user }: any) => ({
-	userState: user,
-}))(App);
+export default App;

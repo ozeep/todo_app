@@ -9,7 +9,7 @@ import {
 
 const initialState: IUserState = {};
 
-const groups = (state = initialState, action: UserActionTypes) => {
+const user = (state = initialState, action: UserActionTypes) => {
 	switch (action.type) {
 		case USER_LOGIN:
 			return {
@@ -28,4 +28,4 @@ const groups = (state = initialState, action: UserActionTypes) => {
 	}
 };
 
-export default groups;
+export default user;

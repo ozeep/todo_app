@@ -6,7 +6,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { addTask } from "../redux/actions/tasks";
 import { userLogout } from "../redux/actions/user";
 
-import { Dialog, Sidebar, AlertContainer, TasksContainer } from "../components";
+import { Dialog, Sidebar, TasksContainer } from "../components";
 
 import { AiOutlinePlus, AiOutlineLogout } from "react-icons/ai";
 
@@ -101,7 +101,6 @@ const HomePage = () => {
 					/>
 				</Dialog>
 			)}
-			<AlertContainer />
 		</>
 	);
 };

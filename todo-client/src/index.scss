@@ -485,20 +485,26 @@ $gd: "";
 	justify-content: flex-start;
 	align-items: center;
 
-	a {
-		flex: 1;
-	}
-
 	p {
 		padding: 10px;
 		display: inline-block;
 		color: #fff;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	a {
 		display: flex;
 		align-items: center;
 		height: 100%;
+		max-width: 140px;
+	}
+
+	&__buttons {
+		margin-left: auto;
+		display: flex;
+		flex: 0;
 	}
 
 	span {

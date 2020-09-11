@@ -4,7 +4,7 @@ import "./index.scss";
 const Spinner = () => {
 	return (
 		<div className="spinner-container">
-			<span class="spinner-huge-wave-out"></span>
+			<span className="spinner-huge-wave-out"></span>
 		</div>
 	);
 };
