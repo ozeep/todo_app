@@ -310,24 +310,31 @@ $gd: "";
 	z-index: 99;
 
 	.alert {
-		background: $color-red;
 		border-radius: 5px;
-		padding: 5px;
+
 		margin-bottom: 10px;
 		box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
 
 		&__header {
-			border-radius: 5px;
+			border-radius: 5px 5px 0px 0px;
 			color: #fff;
 			display: flex;
+			padding: 10px;
 			align-items: center;
+			background: $color-red;
+
 			p {
 				font-size: 14px;
 			}
 
-			span {
+			svg {
+				width: 20px;
+				height: 20px;
 				margin-left: auto;
 				font-size: 18px;
+				padding: 2px;
+				border: 1px solid #fff;
+				border-radius: 50%;
 
 				&:hover {
 					cursor: pointer;
@@ -336,20 +343,22 @@ $gd: "";
 		}
 
 		&__content {
+			background: #fff;
 			border-radius: 5px;
-			color: #fff;
+			color: $color-red;
 			display: flex;
 			align-items: center;
+			padding: 10px;
 
 			p {
-				font-size: 14px;
+				font-size: 16px;
 				margin-left: 10px;
 			}
 
-			span {
+			svg {
 				margin-right: auto;
 				font-size: 38px;
-				color: #fff;
+				color: $color-red;
 			}
 		}
 	}

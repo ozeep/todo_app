@@ -35,7 +35,7 @@ export const isUserLoged = (): IAsyncThunkAction<IUser> => (dispatch) => {
 			dispatch({ type: USER_LOGIN, payload: data });
 		})
 		.catch(() => {
-			dispatch(addAlert("Ошибка авторизации", "error") as any);
+			dispatch(addAlert("Сервер недоступен", "error") as any);
 		});
 };
 

@@ -6,6 +6,7 @@ import LiquidLoader from "./components/loader/LiquidLoader";
 import HomePage from "./pages/HomePage";
 import { ReduxDispatch } from "./redux/types";
 import { RootState } from "./redux/reducers";
+import { AlertContainer } from "./components";
 
 function App() {
 	const [isLoading, setIsLoading] = React.useState(false);
@@ -31,6 +32,7 @@ function App() {
 				) : (
 					<LoginPage />
 				)}
+				<AlertContainer />
 			</div>
 		</div>
 	);
